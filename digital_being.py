@@ -1,12 +1,15 @@
 import random
+import math
 
 class DigitalBeing:
-    def __init__(self, energy=10, age=0, reproduction_age=5, mutation_rate=0.1):
+    def __init__(self, energy=10, age=0, reproduction_age=5, mutation_rate=0.1, x=0, y=0):
         self.energy = energy
         self.age = age
         self.reproduction_age = reproduction_age
         self.mutation_rate = mutation_rate
         self.genetic_trait = random.uniform(0, 1)  # A trait that affects survival and reproduction
+        self.x = x
+        self.y = y
 
     def eat(self, food):
         self.energy += food
@@ -29,7 +32,7 @@ class DigitalBeing:
             # Create a new being with inherited traits, possibly mutated
             child_trait = self.genetic_trait + random.uniform(-self.mutation_rate, self.mutation_rate)
             child_trait = max(0, min(1, child_trait))  # Ensure trait stays within bounds
-            child = DigitalBeing(energy=10, age=0, reproduction_age=self.reproduction_age, mutation_rate=self.mutation_rate)
+            child = DigitalBeing(energy=10, age=0, reproduction_age=self.reproduction_age, mutation_rate=self.mutation_rate, x=self.x, y=self.y)
             child.genetic_trait = child_trait
             self.energy -= 5  # Cost of reproduction
             return child
@@ -37,5 +40,13 @@ class DigitalBeing:
             print("Being is too young to reproduce.")
             return None
 
+    def move(self, max_step=1):
+        self.x += random.uniform(-max_step, max_step)
+        self.y += random.uniform(-max_step, max_step)
+        print(f"Being moved to ({self.x:.2f}, {self.y:.2f})")
+
+    def distance_to(self, other):
+        return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+
     def __str__(self):
-        return f"DigitalBeing(energy={self.energy}, age={self.age}, genetic_trait={self.genetic_trait:.2f})"
+        return f"DigitalBeing(energy={self.energy}, age={self.age}, genetic_trait={self.genetic_trait:.2f}, position=({self.x:.2f}, {self.y:.2f}))"
