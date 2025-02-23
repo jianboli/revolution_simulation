@@ -69,3 +69,17 @@ Cross-Disciplinary Collaboration: Encourage collaboration with experts from vari
 
 # To run the code:
 
+```
+python src/simulator.py
+```
+
+Currently, there seems to be a bug which lead all the beings going towards the top left corner and then eventually die there. Need to address the issue
+
+The food distance is still based on the distance to the center rather than the being's size
+
+# create docker image:
+```
+docker build -t revolution_simulatia .
+```
+
+Currently, the docker image is not working yet: https://dev.to/jessewei/run-a-python-gui-app-in-docker-4c2k
